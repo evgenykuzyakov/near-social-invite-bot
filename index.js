@@ -84,7 +84,7 @@ const parseStatus = async (status) => {
       }
     } else {
       await status.reply(
-        `${replyTo} Bummer! I don't understand, please provide valid account ID.\nNote, there is some limitations. That account ID has to end with ".near" and can't include sub-accounts or hyphens.`
+        `${replyTo} Bummer! I don't understand, please provide valid account ID.\nNote, there are some limitations: an account ID has to end with ".near" and can't include sub-accounts or hyphens.`
       );
     }
   } else {
