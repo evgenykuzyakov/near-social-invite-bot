@@ -7,7 +7,7 @@ const { Client } = require("pg");
 const donjs = require("./DonJS");
 
 let me = null;
-const accountRegex = /(([a-z\d]+_)*[a-z\d]+)\.near[^a-z\d_.\-]/;
+const accountRegex = / (([a-zA-Z\d]+_)*[a-zA-Z\d]+)\.near[^a-zA-Z\d_.\-]/;
 
 const pgClient = new Client({
   user: process.env.POSTGRES_USER,
@@ -48,7 +48,7 @@ const inviteAccount = async (accountId) => {
 };
 
 const parseStatus = async (status) => {
-  const mentionPattern = `>@<span>${me.username}</span></a></span> `;
+  const mentionPattern = `>@<span>${me.username}</span></a></span>`;
   const content = status.content;
   const mentionPos = content.indexOf(mentionPattern);
   if (status.account.acct !== status.account.username) {
@@ -64,7 +64,7 @@ const parseStatus = async (status) => {
       // Account ID without .near
       const accountId = accountMatch[1];
       if (accountId.length <= 30) {
-        const nearAccountId = `${accountId}.near`;
+        const nearAccountId = `${accountId.toLowerCase()}.near`;
         const invitationResult = await inviteAccount(nearAccountId);
         if (invitationResult === InvitationResult.AlreadyInvited) {
           await status.reply(
